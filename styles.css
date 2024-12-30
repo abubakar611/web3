@@ -93,13 +93,45 @@ h2 {
 }
 
 #hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('progfile.png') no-repeat center center;
+    background-size: cover;
+}
+
+#hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
     text-align: center;
-    padding: 6rem 5%;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    max-width: 600px;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--primary-color);
 }
 
 #hero h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
 }
 
@@ -109,7 +141,8 @@ h2 {
 
 .cta-button {
     display: inline-block;
-    padding: 0.8rem 2rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     color: var(--text-color);
     text-decoration: none;
@@ -122,58 +155,41 @@ h2 {
     transform: translateY(-3px);
 }
 
-.services-grid, .portfolio-grid {
+.services-grid, .features-grid, .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
 
-.service-card, .portfolio-item {
+.service-card, .feature-card, .portfolio-item {
     background-color: var(--card-background);
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 10px;
-    transition: transform 0.3s ease;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.service-card:hover, .portfolio-item:hover {
+.service-card:hover, .feature-card:hover, .portfolio-item:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
 }
 
 .portfolio-item img {
     width: 100%;
     border-radius: 5px;
     margin-bottom: 1rem;
-}
-
-#contact form {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-#contact input, #contact textarea {
-    margin-bottom: 1rem;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--card-background);
-    color: var(--text-color);
-}
-
-.submit-button {
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    color: var(--text-color);
-    border: none;
-    padding: 0.8rem;
-    border-radius: 5px;
-    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-.submit-button:hover {
-    transform: translateY(-3px);
+.portfolio-item:hover img {
+    transform: scale(1.05);
 }
 
 footer {
@@ -199,10 +215,10 @@ footer {
 
 @media screen and (max-width: 768px) {
     .nav-links {
-        position: absolute;
+        position: fixed;
         right: 0;
-        height: 92vh;
-        top: 8vh;
+        height: 100vh;
+        top: 0;
         background-color: rgba(0, 0, 0, 0.9);
         display: flex;
         flex-direction: column;
@@ -210,18 +226,33 @@ footer {
         width: 50%;
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
+        justify-content: center;
     }
 
     .nav-links li {
         opacity: 0;
+        margin: 1rem 0;
     }
 
     .burger {
         display: block;
+        z-index: 2000;
     }
 
     .nav-active {
         transform: translateX(0%);
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content {
+        padding: 1rem;
+    }
+
+    .services-grid, .features-grid, .portfolio-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -235,3 +266,4 @@ footer {
         transform: translateX(0px);
     }
 }
+

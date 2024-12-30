@@ -31,29 +31,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Service Card Hover Effect
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
+    // Close mobile menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('nav-active');
+            burger.classList.remove('toggle');
+            navLinks.forEach(link => {
+                link.style.animation = '';
+            });
+        });
+    });
+
+    // Feature Card Hover Effect
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach(card => {
         card.addEventListener('mouseover', () => {
             card.style.backgroundColor = '#2c3e50';
         });
         card.addEventListener('mouseout', () => {
             card.style.backgroundColor = '';
         });
-    });
-
-    // Form Submission
-    const form = document.getElementById('contact-form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-
-        // Here you would typically send the form data to a server
-        console.log('Form submitted:', { name, email, message });
-        alert('Thank you for your message! We will get back to you soon.');
-        form.reset();
     });
 
     // Animated Counter for Services
@@ -71,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Add counters to service cards
+    const serviceCards = document.querySelectorAll('.service-card');
     serviceCards.forEach((card, index) => {
         const counter = document.createElement('div');
         counter.classList.add('service-counter');
@@ -86,27 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         observer.observe(card);
     });
-
-    // Parallax effect for hero section
-    window.addEventListener('scroll', () => {
-        const hero = document.getElementById('hero');
-        const scrollPosition = window.pageYOffset;
-        hero.style.backgroundPositionY = scrollPosition * 0.7 + 'px';
-    });
-
-    // Typing effect for hero title
-    const heroTitle = document.querySelector('#hero h1');
-    const text = heroTitle.textContent;
-    heroTitle.textContent = '';
-    let i = 0;
-    const typeWriter = () => {
-        if (i < text.length) {
-            heroTitle.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
-        }
-    };
-    typeWriter();
 
     // Interactive portfolio items
     const portfolioItems = document.querySelectorAll('.portfolio-item');
@@ -124,7 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.removeChild(description);
                 }
             }
-        });});
+        });
+    });
 
     // Animated social icons
     const socialIcons = document.querySelectorAll('.social-icon');
@@ -136,35 +114,5 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.style.transform = 'scale(1)';
         });
     });
-
-    // Live crypto price ticker
-    const createCryptoPriceTicker = () => {
-        const ticker = document.createElement('div');
-        ticker.id = 'crypto-ticker';
-        ticker.style.position = 'fixed';
-        ticker.style.bottom = '20px';
-        ticker.style.left = '20px';
-        ticker.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        ticker.style.padding = '10px';
-        ticker.style.borderRadius = '5px';
-        document.body.appendChild(ticker);
-
-        const updatePrices = async () => {
-            try {
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
-                const data = await response.json();
-                ticker.innerHTML = `
-                    <span>BTC: $${data.bitcoin.usd}</span>
-                    <span style="margin-left: 10px;">ETH: $${data.ethereum.usd}</span>
-                `;
-            } catch (error) {
-                console.error('Error fetching crypto prices:', error);
-            }
-        };
-
-        updatePrices();
-        setInterval(updatePrices, 60000); // Update every minute
-    };
-
-    createCryptoPriceTicker();
 });
+
