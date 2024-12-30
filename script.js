@@ -53,37 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Animated Counter for Services
-    const animateCounter = (element, start, end, duration) => {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            element.textContent = Math.floor(progress * (end - start) + start);
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        };
-        window.requestAnimationFrame(step);
-    };
 
-    // Add counters to service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach((card, index) => {
-        const counter = document.createElement('div');
-        counter.classList.add('service-counter');
-        counter.textContent = '0';
-        card.appendChild(counter);
-
-        // Animate counter when card comes into view
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                animateCounter(counter, 0, (index + 1) * 25, 2000);
-                observer.unobserve(card);
-            }
-        });
-        observer.observe(card);
-    });
 
     // Interactive portfolio items
     const portfolioItems = document.querySelectorAll('.portfolio-item');
